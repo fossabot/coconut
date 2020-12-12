@@ -15,5 +15,5 @@ before_install:
   - ./script/travis.sh before_install
 
 script:
-  - chmod 777 ./script/travis.sh
-  - ./script/travis.sh script
+  - mkdir obj
+  - gprbuild cocount.gpr
