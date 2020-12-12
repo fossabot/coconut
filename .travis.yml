@@ -1,0 +1,17 @@
+os:
+  - linux
+  - osx
+
+osx_image: xcode11.4
+
+language: generic
+
+cache: 
+  directories:
+    - $HOME/cache
+
+before_install:
+  - script/travis.sh before_install
+
+script:
+  - script/travis.sh script
