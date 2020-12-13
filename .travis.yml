@@ -12,7 +12,7 @@ cache:
 
 before_install:
   - chmod 777 ./script/travis.sh
-  - ./script/travis.sh before_install_gprbuild
+  - ./script/travis.sh install
 
 script:
-  - ./script/travis.sh script_build
+  - ./script/travis.sh script
