@@ -44,33 +44,38 @@
 
 set -e -x
 
-INSTALL_DIR=$PWD/../gprbuild_temp
-#export PATH=$INSTALL_DIR/bin:$PATH
+INSTALL_DIR=$PWD/../gnat
+ROOT=$PWD
+export PATH=$INSTALL_DIR/bin:$PATH
+export ADA_PROJECT_PATH=$PWD/libadalang-tools/src:$PWD/VSS/gnat:$PWD/ada_libfswatch/:$PWD/subprojects/stubs
 
-function download_xmlada()
+function download_gnat()
 {
-    wget -nv -O- https://github.com/AdaCore/xmlada/archive/xmlada-16.1.tar.gz
-    tar xzf - -C xmlada-16.1.tar.gz
+    if [ ! -f $GNAT_INSTALLER ]; then
+        mkdir -p `dirname $GNAT_INSTALLER`
+        rm -rfv `dirname $GNAT_INSTALLER`/*
+        # Use --progress=dot:giga to ensure travis doesn't give up for lack of progress
+        wget --progress=dot:giga -O $GNAT_INSTALLER $1
+    fi
+
+    git clone https://github.com/AdaCore/gnat_community_install_script.git
+    sh gnat_community_install_script/install_package.sh $GNAT_INSTALLER $INSTALL_DIR
+    $INSTALL_DIR/bin/gprinstall --uninstall gnatcoll
 }
 
-function download_gprbuild()
+
+function linux_before_install()
 {
-   
-    wget -nv -O- https://github.com/AdaCore/gprbuild/archive/community-2019.tar.gz
-    tar xzf - -C community-2019.tar.gz
-}
+    echo INSTALL_DIR=$INSTALL_DIR
+    GNAT_INSTALLER=$HOME/cache/gnat-2020-20200818-x86_64-linux-bin
 
-function install()
-{
-    
-    mkdir $INSTALL_DIR
-    
-    cd $INSTALL_DIR
-    
-    download_xmlada
-    download_gprbuild
+    download_gnat https://community.download.adacore.com/v1/a639696a9fd3bdf0be21376cc2dc3129323cbe42\
+?filename=gnat-2020-20200818-x86_64-linux-bin
 
-    cd gprbuild-community-2019
-    $ ./bootstrap.sh --with-xmlada=../xmlada --with-kb=../gprconfig_kb --prefix=./bootstrap
-
+    wget -nv -O- https://dl.bintray.com/reznikmm/libadalang/libadalang-stable-linux.tar.gz \
+        | tar xzf - -C $INSTALL_DIR
+    clone_dependencies
+    build_libfswatch
+    sudo apt-get update
+    sudo apt-get -y install chrpath
 }
