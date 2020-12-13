@@ -6,14 +6,12 @@ build_dir=bootstrap
 
 download_xmlada() {
     echo "正在下载安装[xmlada]..."
-    wget --no-netrc https://github.com/AdaCore/xmlada/archive/xmlada-16.1.tar.gz
-    tar -xf xmlada-16.1.tar.gz
+    wget --nv -O- https://github.com/AdaCore/xmlada/archive/xmlada-16.1.tar.gz | tar zxf - -C xmlada-16.1.tar.gz
 }
 
 download_gprbuild() {
     echo "正在下载[gprbuild]..."
-    wget --no-netrc https://github.com/AdaCore/gprbuild/archive/community-2019.tar.gz
-	tar -xf community-2019.tar.gz
+    wget --nv -O- https://github.com/AdaCore/gprbuild/archive/community-2019.tar.gz | tar zxf - -C community-2019.tar.gz
 }
 
 build_gprbuild() {
@@ -39,6 +37,6 @@ install() {
 	cp -R $build_dir/libexec/gprbuild/ $target_dir/libexec/
 }
 
-script {
+script() {
     gprbuild -j0 -p
 }
