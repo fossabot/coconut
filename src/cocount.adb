@@ -11,11 +11,11 @@ package body Cocount is
         -- Set_Name(DA, "tom");
         DA.Set_Name("Tom");
         Add(AS, DA);
-        Put_Line("Cocount..." & Name(DA) & " , " & AS.Length'Image);
+        -- Put_Line("Cocount..." & Name(DA) & " , " & AS.Length'Image);
         Put_Line("Delete...");
         Delete(AS, DA);
         AS.Delete(0); -- OK
-        Put_Line("Cocount..." & Name(DA) & " , " & AS.Length'Image);
+        -- Put_Line("Cocount..." & Name(DA) & " , " & AS.Length'Image);
     end Main;
 
 
