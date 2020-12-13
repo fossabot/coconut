@@ -16,4 +16,4 @@ before_install:
 
 script:
   - mkdir obj
-  - gprbuild cocount.gpr
+  - gnatmake -P cocount.gpr
