@@ -6,5 +6,6 @@ function before_install_gprbuild() {
 }
 
 function script_build() {
+    echo "Build cocount.gpr..."
     gprbuild -j0 -p
 }
