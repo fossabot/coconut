@@ -11,9 +11,9 @@ cache:
     - $HOME/cache
 
 before_install:
-  - chmod 777 ./script/travis.sh
-  - ./script/travis.sh before_install
+  - sudo apt-get update && 
+  - sudo apt-get install gnat gprbuild
+
 
 script:
-  - mkdir obj
-  - gnatmake -P cocount.gpr
+  - gprbuild -j0 -p

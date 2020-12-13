@@ -30,10 +30,12 @@ package Account.Default_Account is
     function Desc(Item: in Instance) return String;
 private
     type Instance is tagged record
-        Name: Unbounded_String;
-        Site: Unbounded_String;
-        Acc: Unbounded_String;
-        Password: Unbounded_String;
-        Desc: Unbounded_String;
+        -- Name: Unbounded_String;
+        -- Site: Unbounded_String;
+        -- Acc: Unbounded_String;
+        -- Password: Unbounded_String;
+        -- Desc: Unbounded_String;
+
+        Name, Site, Acc, Password, Desc: Unbounded_String;
     end record;
 end Account.Default_Account;
